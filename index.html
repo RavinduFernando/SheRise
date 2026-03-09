@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SheRise – Empowering Sri Lankan Women Through Decent Work & Skills</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2933;
+      background-color: #f5f7fa;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      font-family: inherit;
+    }
+
+    /* ========== COLOR TOKENS ========== */
+    :root {
+      --primary: #6b21a8;      /* deep purple */
+      --primary-soft: #ede9fe;
+      --accent: #f59e0b;       /* warm gold */
+      --bg-dark: #0b1020;
+      --text-light: #f9fafb;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease;
+    }
+
+    /* ========== LAYOUT HELPERS ========== */
+    .container {
+      width: min(1120px, 100% - 2rem);
+      margin-inline: auto;
+    }
+    section {
+      padding: 4rem 0;
+    }
+    @media (min-width: 900px) {
+      section {
+        padding: 5rem 0;
+      }
+    }
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      margin-bottom: 0.75rem;
+    }
+    .section-heading p {
+      color: var(--muted);
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    /* ========== NAVBAR ========== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.85)
+      );
+      color: var(--text-light);
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.35);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+    }
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fbbf24, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo-text {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo-img {
+      height: 36px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--accent), #f97316);
+      transition: width var(--transition-fast);
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      width: 100%;
+    }
+    .nav-cta {
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(to right, #f59e0b, #f97316);
+      border: none;
+      color: #111827;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+      box-shadow: 0 6px 15px rgba(248, 180, 0, 0.45);
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(248, 180, 0, 0.6);
+    }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    @media (max-width: 720px) {
+      .nav-links {
+        position: fixed;
+        inset: 56px 0 auto 0;
+        background: rgba(15, 23, 42, 0.98);
+        flex-direction: column;
+        padding: 1rem 1.5rem 1.5rem;
+        transform: translateY(-200%);
+        transition: transform 0.25s ease;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+      }
+      .nav-cta {
+        width: 100%;
+        text-align: center;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      background: radial-gradient(circle at top, #4c1d95, #020617 55%);
+      color: var(--text-light);
+      padding: 5rem 0 4.5rem;
+    }
+    .hero-grid {
+      display: grid;
+      gap: 2.5rem;
+    }
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+        align-items: center;
+      }
+    }
+    .hero-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      color: #a5b4fc;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5vw, 2.9rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      color: #facc15;
+    }
+    .hero-sub {
+      color: #cbd5f5;
+      margin-bottom: 1.5rem;
+      max-width: 32rem;
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .hero-cta-primary {
+      padding: 0.8rem 1.6rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: linear-gradient(to right, #f97316, #facc15);
+      color: #111827;
+      box-shadow: 0 16px 40px rgba(248, 180, 0, 0.55);
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+    .hero-cta-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(248, 180, 0, 0.7);
+    }
+    .hero-cta-secondary {
+      border-radius: var(--radius-pill);
+      padding: 0.75rem 1.3rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+    .hero-meta strong {
+      color: #e5e7eb;
+    }
+    .hero-card {
+      background: rgba(15, 23, 42, 0.72);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+    .hero-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.45rem;
+    }
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+    .hero-pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 0.2rem 0.7rem;
+      font-size: 0.75rem;
+      color: #c7d2fe;
+    }
+
+    /* ========== MODULES ========== */
+    #modules {
+      background: radial-gradient(circle at top, #ede9fe, #f5f7fa 55%);
+    }
+    .modules-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    @media (min-width: 720px) {
+      .modules-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1000px) {
+      .modules-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+    .module-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), background 0.25s ease;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .module-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+      background: #f9fafb;
+    }
+    .module-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      background: var(--primary-soft);
+      color: #4c1d95;
+      font-size: 1.2rem;
+    }
+    .module-tag {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .module-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .module-card p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.7rem;
+    }
+    .module-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: #eef2ff;
+      color: #4338ca;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+    .module-card .corner-glow {
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .module-card:hover .corner-glow {
+      opacity: 1;
+    }
+
+    /* ========== USER JOURNEY ========== */
+    #journey {
+      background: #f5f7fa;
+    }
+    .journey-wrapper {
+      max-width: 860px;
+      margin-inline: auto;
+      position: relative;
+    }
+    .journey-progress {
+      position: absolute;
+      top: 1.4rem;
+      left: 0.75rem;
+      bottom: 1.4rem;
+      width: 4px;
+      background: linear-gradient(to bottom, #a855f7, #f97316);
+      border-radius: var(--radius-pill);
+      opacity: 0.2;
+    }
+    .journey-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      padding-left: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .journey-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 2px solid #a855f7;
+      background: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #4c1d95;
+      z-index: 1;
+    }
+    .journey-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+    .journey-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .journey-card p {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+    .journey-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .journey-top-progress {
+      display: none;
+    }
+    @media (min-width: 800px) {
+      .journey-wrapper {
+        padding-top: 3rem;
+      }
+      .journey-progress {
+        display: none;
+      }
+      .journey-top-progress {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .journey-top-progress div {
+        height: 6px;
+        border-radius: var(--radius-pill);
+        background: #e5e7eb;
+        position: relative;
+        overflow: hidden;
+      }
+      .journey-top-progress div::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, #a855f7, #f97316);
+      }
+      .journey-step {
+        padding-left: 0;
+      }
+    }
+
+    /* ========== FREELANCING PLATFORM ========== */
+    #freelance {
+      background: radial-gradient(circle at top, #0f172a, #020617 58%);
+      color: var(--text-light);
+    }
+    .freelance-layout {
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 900px) {
+      .freelance-layout {
+        grid-template-columns: 1.3fr 1.7fr;
+        align-items: start;
+      }
+    }
+    .freelance-intro h2 {
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      margin-bottom: 0.75rem;
+    }
+    .freelance-intro p {
+      color: #cbd5f5;
+      margin-bottom: 1.25rem;
+    }
+    .freelance-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .freelance-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(191, 219, 254, 0.6);
+      color: #e5e7eb;
+    }
+    .freelance-stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+    .freelance-stat-row strong {
+      color: #e5e7eb;
+    }
+
+    .freelance-board {
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+    .freelance-board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .freelance-board-header h3 {
+      font-size: 1rem;
+    }
+    .pill-filter {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 0.25rem;
+      display: inline-flex;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+    .pill-filter button {
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-pill);
+      padding: 0.25rem 0.7rem;
+      color: #9ca3af;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .pill-filter button.active {
+      background: linear-gradient(to right, #a855f7, #f97316);
+      color: #111827;
+    }
+    .freelance-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .freelance-card {
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.75rem 0.85rem;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 0.5rem;
+      align-items: center;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+    .freelance-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.8);
+      border-color: #f97316;
+    }
+    .freelance-meta {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.2rem;
+    }
+    .freelance-meta span + span::before {
+      content: "•";
+      margin: 0 0.35rem;
+      opacity: 0.6;
+    }
+    .freelance-pay {
+      text-align: right;
+      font-size: 0.86rem;
+      color: #e5e7eb;
+    }
+    .freelance-pay strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+    .freelance-tag {
+      display: inline-block;
+      margin-top: 0.2rem;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-pill);
+      background: rgba(55, 65, 81, 0.9);
+      color: #e5e7eb;
+    }
+
+    /* ========== MARKET SECTION ========== */
+    #market {
+      background: #ffffff;
+    }
+    .market-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 900px) {
+      .market-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
+        align-items: start;
+      }
+    }
+    .stat-card {
+      background: #f9fafb;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+      margin-bottom: 1rem;
+    }
+    .stat-card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 0.5rem;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .stat-pill {
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.7rem;
+      background: #eff6ff;
+      font-size: 0.8rem;
+      color: #1d4ed8;
+    }
+
+    /* ========== CONTACT ========== */
+    #contact {
+      background: #0b1020;
+      color: var(--text-light);
+    }
+    .contact-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 900px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+    .contact-form {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 1.6rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+    .field-group {
+      margin-bottom: 1rem;
+    }
+    .field-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+      color: #e5e7eb;
+    }
+    .field-group input,
+    .field-group textarea {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+    .field-group input:focus,
+    .field-group textarea:focus {
+      outline: 2px solid #f97316;
+      border-color: transparent;
+    }
+    .field-group textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .error-text {
+      font-size: 0.78rem;
+      color: #fecaca;
+      margin-top: 0.15rem;
+      display: none;
+    }
+    .contact-submit {
+      margin-top: 0.5rem;
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(to right, #fbbf24, #f97316);
+      color: #111827;
+      font-weight: 600;
+      box-shadow: 0 14px 35px rgba(248, 180, 0, 0.7);
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+    .contact-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(248, 180, 0, 0.85);
+    }
+    .contact-side {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+    }
+    .contact-side h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      color: #e5e7eb;
+    }
+    .contact-side p {
+      margin-bottom: 0.9rem;
+    }
+    .partner-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .partner-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #020617;
+      color: #9ca3af;
+      padding: 1rem 0;
+      font-size: 0.8rem;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== HEADER / NAV ========== -->
+  <header aria-label="Primary navigation">
+    <div class="container nav">
+      <div class="logo-mark">
+        <!-- Added logo image, keeping old circle + text for consistency -->
+        <img src="SheRise-main-logo.jpg"
+             alt="SheRise logo"
+             class="nav-logo-img" />
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav class="nav-links" aria-label="Main sections">
+        <a href="#home">Home</a>
+        <a href="#modules">Modules</a>
+        <a href="#journey">User Journey</a>
+        <a href="#market">Market</a>
+        <a href="#contact">Contact</a>
+        <button class="nav-cta" onclick="scrollToJoin()">
+          Join SheRise
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO / HOME ========== -->
+  <main id="home" class="hero" aria-labelledby="sheRiseHeroTitle">
+    <div class="container hero-grid">
+      <section>
+        <!-- small logo above text for branding -->
+        <img src="SheRise-main-logo.jpg"
+             alt="SheRise logo"
+             style="max-width:190px; margin-bottom:0.75rem;" />
+        <p class="hero-eyebrow">For Sri Lankan women, by Sri Lankan women</p>
+        <h1 id="sheRiseHeroTitle">
+          SheRise – Empowering Women to <span>Learn, Work, Grow, Connect</span>
+        </h1>
+        <p class="hero-sub">
+          A women‑centred digital platform that turns skills into real income by
+          combining practical learning, decent jobs, entrepreneurship support,
+          and a trusted community – all in one place.
+        </p>
+
+        <div class="hero-cta-row">
+          <button class="hero-cta-primary" onclick="scrollToJoin()">
+            Join SheRise
+          </button>
+          <button class="hero-cta-secondary" onclick="document.getElementById('modules').scrollIntoView({behavior:'smooth'})">
+            Explore the four modules
+          </button>
+        </div>
+
+        <div class="hero-meta" aria-label="Key impact metrics">
+          <div><strong>50,000+</strong> women targeted over 3 years</div>
+          <div><strong>Skills → Jobs → Income</strong> journey</div>
+        </div>
+      </section>
+
+      <aside class="hero-card" aria-label="SheRise impact highlight">
+        <h3>Why SheRise?</h3>
+        <p style="font-size:0.9rem;">
+          In Sri Lanka, millions of educated women still struggle to find decent
+          work or grow a small business. SheRise bridges the gap between
+          education and income through an integrated digital ecosystem.
+        </p>
+        <div class="hero-pill-row">
+          <span class="hero-pill">Digital Skills</span>
+          <span class="hero-pill">Decent Work</span>
+          <span class="hero-pill">Women Entrepreneurs</span>
+          <span class="hero-pill">Safe Community</span>
+        </div>
+
+        <!-- About & Instagram / SheConnect quick link -->
+        <div style="margin-top:1.2rem; border-top:1px solid rgba(148,163,184,0.5); padding-top:0.9rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
+          <div style="font-size:0.8rem; color:#9ca3af; max-width:190px;">
+            Follow our journey and community stories on Instagram:
+          </div>
+          <a href="https://www.instagram.com/sherise.sl?igsh=Z2Vpazk3YnVrdDlm"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="SheRise official Instagram @sherise.sl"
+             style="display:flex; align-items:center; gap:0.4rem; text-decoration:none;">
+            <span style="width:26px; height:26px; border-radius:50%; border:1px solid #facc15; display:flex; align-items:center; justify-content:center; font-size:0.95rem;">📷</span>
+            <span style="font-size:0.85rem; color:#e5e7eb;">@sherise.sl</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ========== MODULES ========== -->
+  <section id="modules" aria-labelledby="modulesHeading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="modulesHeading">Four Modules, One Platform</h2>
+        <p>
+          SheRise is built around four core modules designed to tackle the real
+          barriers women face: skills, opportunities, finance, and confidence.
+        </p>
+      </div>
+
+      <div class="modules-grid" role="list">
+        <!-- SheLearn -->
+        <article class="module-card" role="listitem" tabindex="0">
+          <div class="module-icon" aria-hidden="true">📚</div>
+          <p class="module-tag">SheLearn</p>
+          <h3>Skills & Courses</h3>
+          <p>
+            Short, practical courses in digital skills, money management, and
+            entrepreneurship – delivered in Sinhala, Tamil, and English.
+          </p>
+          <div>
+            <span class="module-pill">Digital marketing</span>
+            <span class="module-pill">Freelancing basics</span>
+            <span class="module-pill">Financial literacy</span>
+          </div>
+          <div class="corner-glow" aria-hidden="true"></div>
+        </article>
+
+        <!-- SheWork -->
+        <article class="module-card" role="listitem" tabindex="0">
+          <div class="module-icon" aria-hidden="true">💼</div>
+          <p class="module-tag">SheWork</p>
+          <h3>Jobs & Freelance</h3>
+          <p>
+            A curated board of women‑friendly jobs and flexible freelance
+            projects from trusted employers and clients.
+          </p>
+          <div>
+            <span class="module-pill">Entry‑level roles</span>
+            <span class="module-pill">Remote projects</span>
+            <span class="module-pill">Safe employers</span>
+          </div>
+          <div class="corner-glow" aria-hidden="true"></div>
+        </article>
+
+        <!-- SheGrow -->
+        <article class="module-card" role="listitem" tabindex="0">
+          <div class="module-icon" aria-hidden="true">📈</div>
+          <p class="module-tag">SheGrow</p>
+          <h3>Business & Finance</h3>
+          <p>
+            Simple tools and guidance to plan, launch, and grow small
+            businesses – plus pathways to microfinance and partner banks.
+          </p>
+          <div>
+            <span class="module-pill">Business plans</span>
+            <span class="module-pill">Loan navigation</span>
+            <span class="module-pill">Side‑hustle toolkit</span>
+          </div>
+          <div class="corner-glow" aria-hidden="true"></div>
+        </article>
+
+        <!-- SheConnect -->
+        <article class="module-card" role="listitem" tabindex="0">
+          <div class="module-icon" aria-hidden="true">🤝</div>
+          <p class="module-tag">SheConnect</p>
+          <h3>Community & Mentors</h3>
+          <p>
+            Safe online spaces, mentors, and peer circles where women can ask
+            questions, share experiences, and support each other.
+          </p>
+          <div>
+            <span class="module-pill">Peer circles</span>
+            <span class="module-pill">Mentor sessions</span>
+            <span class="module-pill">WhatsApp groups</span>
+          </div>
+          <div class="corner-glow" aria-hidden="true"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== USER JOURNEY ========== -->
+  <section id="journey" aria-labelledby="journeyHeading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="journeyHeading">User Journey – From Learning to Income</h2>
+        <p>
+          A typical SheRise user follows a clear, guided path from sign‑up to
+          real income, with support at every step.
+        </p>
+      </div>
+
+      <div class="journey-wrapper">
+        <div class="journey-top-progress" aria-hidden="true">
+          <div></div><div></div><div></div><div></div>
+        </div>
+        <div class="journey-progress" aria-hidden="true"></div>
+
+        <!-- Step 1 -->
+        <div class="journey-step">
+          <div class="journey-badge">1</div>
+          <div class="journey-card">
+            <p class="journey-tag">Step 1</p>
+            <h3>Sign‑Up & Profile</h3>
+            <p>
+              She creates a profile on her phone, shares her education, skills,
+              and goals – job, freelance, or business – so SheRise can recommend
+              the right pathway.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="journey-step">
+          <div class="journey-badge">2</div>
+          <div class="journey-card">
+            <p class="journey-tag">Step 2</p>
+            <h3>Skills & Learning Path (SheLearn)</h3>
+            <p>
+              She follows short, local‑language courses such as “Intro to
+              Digital Marketing”, “Selling Online”, or “Personal Budgeting” to
+              build confidence and market‑ready skills.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="journey-step">
+          <div class="journey-badge">3</div>
+          <div class="journey-card">
+            <p class="journey-tag">Step 3</p>
+            <h3>Economic Activation (SheWork / SheGrow)</h3>
+            <p>
+              Depending on her goal, she is matched to jobs and freelance
+              projects, or guided to build a simple business plan and connect
+              with partner microfinance institutions and banks.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="journey-step">
+          <div class="journey-badge">4</div>
+          <div class="journey-card">
+            <p class="journey-tag">Step 4</p>
+            <h3>Support & Growth (SheConnect)</h3>
+            <p>
+              She joins community groups and mentoring circles, continues
+              advanced courses, and steadily grows her income and impact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FREELANCING PLATFORM PROTOTYPE ========== -->
+  <section id="freelance" aria-labelledby="freelanceHeading">
+    <div class="container freelance-layout">
+      <div class="freelance-intro">
+        <h2 id="freelanceHeading">Freelance Opportunities – Live Board Prototype</h2>
+        <p>
+          This prototype board shows how SheRise can connect trained women to
+          real projects from vetted clients. Filters help users find the right
+          work quickly – remote, part‑time, or project‑based.
+        </p>
+        <div class="freelance-badges">
+          <span class="freelance-badge">Remote‑first</span>
+          <span class="freelance-badge">Women‑friendly clients</span>
+          <span class="freelance-badge">Transparent pay</span>
+        </div>
+        <div class="freelance-stat-row">
+          <span><strong>20+</strong> pilot projects posted</span>
+          <span><strong>40%</strong> women prefer flexible work</span>
+        </div>
+        <p style="font-size:0.86rem;">
+          In the full platform, this board would be powered by real‑time data,
+          secure payments, and reputation scores – turning skills into income in
+          a safe, transparent way.
+        </p>
+      </div>
+
+      <div class="freelance-board" aria-label="Sample freelance projects">
+        <div class="freelance-board-header">
+          <h3>Featured Projects</h3>
+          <div class="pill-filter" aria-label="Filter by project type">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="digital">Digital</button>
+            <button data-filter="creative">Creative</button>
+            <button data-filter="business">Business</button>
+          </div>
+        </div>
+
+        <div class="freelance-list" id="freelanceList">
+          <!-- Cards injected by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARKET VALIDATION ========== -->
+  <section id="market" aria-labelledby="marketHeading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="marketHeading">Market Validation – What Women Told Us</h2>
+        <p>
+          We surveyed 20 Sri Lankan women aged 19–40 to understand their
+          realities, goals, and willingness to use a platform like SheRise.
+        </p>
+      </div>
+
+      <div class="market-grid">
+        <div>
+          <div class="stat-card">
+            <h3>Income & Goals</h3>
+            <p style="font-size:0.9rem;">
+              Only <strong>20%</strong> of women in our sample have a stable
+              income. <strong>75%</strong> either earn irregularly or do not
+              earn but want to. About <strong>50%</strong> are job‑focused,
+              while <strong>45%</strong> want to start or grow a business.
+            </p>
+            <div class="stat-grid" aria-label="Income stats">
+              <div class="stat-pill">40% not earning but want to</div>
+              <div class="stat-pill">35% irregular income</div>
+              <div class="stat-pill">30% want full‑time jobs</div>
+              <div class="stat-pill">25% want to grow a business</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h3>Key Barriers</h3>
+            <p style="font-size:0.9rem;">
+              The top barriers named were <strong>finance (35%)</strong>,
+              <strong>skills gaps (30%)</strong>, and
+              <strong>lack of opportunities (25%)</strong>. Most women do not
+              feel confident about money or business decisions.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="stat-card">
+            <h3>Platform Interest & Pricing</h3>
+            <p style="font-size:0.9rem;">
+              <strong>90%</strong> of respondents are very or somewhat
+              interested in a SheRise‑type platform. Only <strong>15%</strong>
+              said courses must be free; most are comfortable in the
+              <strong>LKR 1,000–3,000</strong> range for short courses.
+            </p>
+            <div class="stat-grid">
+              <div class="stat-pill">55% very interested</div>
+              <div class="stat-pill">35% somewhat interested</div>
+              <div class="stat-pill">45% can pay LKR 1,001–3,000</div>
+              <div class="stat-pill">
+                Most prefer &lt; LKR 500 / month for premium
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.86rem; color:#4b5563;">
+            These insights confirm both the social need and the commercial
+            potential for SheRise – especially with a mix of free access,
+            scholarships, and affordable premium tiers.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" aria-labelledby="contactHeading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="contactHeading">Partner with SheRise</h2>
+        <p>
+          We are inviting universities, NGOs, banks, and employers to co‑create
+          a national movement for women’s economic empowerment.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Form -->
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="field-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+            <p class="error-text" id="nameError">Please enter your name.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+            />
+            <p class="error-text" id="emailError">
+              Please enter a valid email address.
+            </p>
+          </div>
+
+          <div class="field-group">
+            <label for="message">How would you like to collaborate?</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="E.g., host training, offer jobs, design a loan product for women…"
+            ></textarea>
+            <p class="error-text" id="messageError">
+              Please share a brief message.
+            </p>
+          </div>
+
+          <button type="submit" class="contact-submit">
+            Send message
+          </button>
+          <p
+            id="formSuccess"
+            style="margin-top:0.7rem;font-size:0.85rem;color:#bbf7d0;display:none;"
+          >
+            Thank you! Your message has been recorded in this prototype.
+          </p>
+        </form>
+
+        <!-- Partnership info + Instagram QR -->
+        <aside class="contact-side">
+          <h3>About SheRise & Partnerships</h3>
+          <p>
+            SheRise is a student‑led prototype focused on building a real
+            solution for Sri Lankan women who want to learn, work, and grow
+            their own income streams.
+          </p>
+          <ul class="partner-list">
+            <li>• <strong>Universities & Institutes:</strong> co‑design courses, recognise certificates.</li>
+            <li>• <strong>NGOs:</strong> reach marginalised women and co‑host community programmes.</li>
+            <li>• <strong>Banks & MFIs:</strong> women‑friendly loans bundled with training.</li>
+            <li>• <strong>Employers:</strong> post women‑friendly jobs and internships.</li>
+          </ul>
+
+          <div style="margin-top:1.2rem;">
+            <h3 style="margin-bottom:0.4rem;">Join our SheConnect community</h3>
+            <p style="margin-bottom:0.5rem;">
+              Follow us on Instagram for updates, stories, and opportunities:
+            </p>
+            <a href="https://www.instagram.com/sherise.sl?igsh=Z2Vpazk3YnVrdDlm"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="display:inline-flex; align-items:center; gap:0.4rem; margin-bottom:0.7rem; text-decoration:none; color:#facc15; font-weight:600;">
+              <span style="font-size:1.1rem;">📷</span> @sherise.sl
+            </a>
+
+            <div style="margin-top:0.4rem;">
+              <img src="IMG_20260309_114444_775-3.jpg"
+                   alt="QR code linking to SheRise Instagram @sherise.sl"
+                   style="max-width:150px; border-radius:12px; background:#fff; padding:0.4rem;" />
+            </div>
+          </div>
+
+          <p style="margin-top:0.7rem;">
+            Together, we can help thousands of Sri Lankan women move from
+            education to real economic freedom.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <div>© 2026 SheRise – Student Prototype</div>
+      <div>
+        Built for the CREST entrepreneurship project ·
+        <a href="https://www.instagram.com/sherise.sl?igsh=Z2Vpazk3YnVrdDlm"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color:#e5e7eb; text-decoration:none;">
+          Instagram: @sherise.sl
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    /* NAV TOGGLE */
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+
+    function scrollToJoin() {
+      document
+        .getElementById("contact")
+        .scrollIntoView({ behavior: "smooth" });
+    }
+    window.scrollToJoin = scrollToJoin;
+
+    /* FREELANCE BOARD DATA + FILTERING */
+    const projects = [
+      {
+        title: "Social Media Content for Local Clothing Brand",
+        type: "digital",
+        meta: ["Remote", "10 hrs / week", "3 weeks"],
+        pay: "LKR 18,000",
+        tag: "Digital marketing",
+      },
+      {
+        title: "Logo & Packaging Design for Homemade Food Startup",
+        type: "creative",
+        meta: ["Hybrid – Colombo", "One‑time project"],
+        pay: "LKR 15,000",
+        tag: "Graphic design",
+      },
+      {
+        title: "Virtual Assistant for Small Export Business",
+        type: "business",
+        meta: ["Remote", "20 hrs / week", "3 months"],
+        pay: "LKR 35,000 / month",
+        tag: "Admin & support",
+      },
+      {
+        title: "English‑Sinhala Social Media Caption Writing",
+        type: "digital",
+        meta: ["Remote", "Flexible hours"],
+        pay: "LKR 8,000",
+        tag: "Content writing",
+      },
+      {
+        title: "Basic Bookkeeping for Home Bakery",
+        type: "business",
+        meta: ["On‑site – Gampaha", "6 hrs / week"],
+        pay: "LKR 12,000 / month",
+        tag: "Bookkeeping",
+      },
+      {
+        title: "Flyer & Poster Design for Community Event",
+        type: "creative",
+        meta: ["Remote", "Short project"],
+        pay: "LKR 6,000",
+        tag: "Canva design",
+      },
+    ];
+
+    const board = document.getElementById("freelanceList");
+    const filterButtons = document.querySelectorAll(".pill-filter button");
+
+    function renderProjects(filter = "all") {
+      board.innerHTML = "";
+      const filtered =
+        filter === "all"
+          ? projects
+          : projects.filter((p) => p.type === filter);
+
+      filtered.forEach((p) => {
+        const card = document.createElement("article");
+        card.className = "freelance-card";
+        card.setAttribute("tabindex", "0");
+        card.innerHTML = `
+          <div>
+            <h4 style="font-size:0.92rem;">${p.title}</h4>
+            <div class="freelance-meta">
+              ${p.meta.map((m) => `<span>${m}</span>`).join("")}
+            </div>
+          </div>
+          <div class="freelance-pay">
+            <strong>${p.pay}</strong>
+            <span class="freelance-tag">${p.tag}</span>
+          </div>
+        `;
+        board.appendChild(card);
+      });
+    }
+    renderProjects();
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    /* CONTACT FORM VALIDATION */
+    const form = document.getElementById("contactForm");
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const messageField = document.getElementById("message");
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const messageError = document.getElementById("messageError");
+    const formSuccess = document.getElementById("formSuccess");
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      if (!nameField.value.trim()) {
+        nameError.style.display = "block";
+        valid = false;
+      } else {
+        nameError.style.display = "none";
+      }
+
+      if (!emailField.value.trim() || !validateEmail(emailField.value.trim())) {
+        emailError.style.display = "block";
+        valid = false;
+      } else {
+        emailError.style.display = "none";
+      }
+
+      if (!messageField.value.trim()) {
+        messageError.style.display = "block";
+        valid = false;
+      } else {
+        messageError.style.display = "none";
+      }
+
+      if (valid) {
+        formSuccess.style.display = "block";
+        form.reset();
+        setTimeout(() => {
+          formSuccess.style.display = "none";
+        }, 4000);
+      }
+    });
+  </script>
+</body>
+</html>
